@@ -17,9 +17,10 @@
 package main
 
 import (
+	"context"
 	_ "embed"
 
-	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
+	tfbridge "github.com/pulumi/pulumi-terraform-bridge/pf/tfbridge"
 	alicloudfcurl "github.com/rhysmdnz/pulumi-alicloud-fc-url/provider"
 	"github.com/rhysmdnz/pulumi-alicloud-fc-url/provider/pkg/version"
 )
@@ -27,7 +28,13 @@ import (
 //go:embed schema-embed.json
 var pulumiSchema []byte
 
+//go:embed bridge-metadata.json
+var bridgeMetadata []byte
+
 func main() {
-	// Modify the path to point to the new provider
-	tfbridge.Main("alicloud-fc-url", version.Version, alicloudfcurl.Provider(), pulumiSchema)
+	meta := tfbridge.ProviderMetadata{
+		PackageSchema:  pulumiSchema,
+		BridgeMetadata: bridgeMetadata,
+	}
+	tfbridge.Main(context.Background(), version.Version, alicloudfcurl.Provider(), meta)
 }
