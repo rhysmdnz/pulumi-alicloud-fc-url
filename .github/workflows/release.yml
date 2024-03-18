@@ -26,6 +26,8 @@ jobs:
   publish_binary:
     name: publish
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -48,7 +50,7 @@ jobs:
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2
         with:
-          args: -p 3 release --rm-dist
+          args: -p 3 release --clean
           version: latest
   publish_sdk:
     name: Publish SDKs
