@@ -1,0 +1,175 @@
+{
+    "name": "alicloud-fc-url",
+    "description": "A Pulumi package for creating and managing alicloud-fc-url cloud resources.",
+    "keywords": [
+        "pulumi",
+        "alicloud-fc-url",
+        "category/cloud"
+    ],
+    "homepage": "https://www.pulumi.com",
+    "license": "Apache-2.0",
+    "attribution": "This Pulumi package is based on the [`alicloud-fc-url` Terraform Provider](https://github.com/rhysmdnz/terraform-provider-alicloud-fc-url).",
+    "repository": "https://github.com/rhysmdnz/pulumi-alicloud-fc-url",
+    "pluginDownloadURL": "github://api.github.com/rhysmdnz/pulumi-alicloud-fc-url",
+    "publisher": "Rhys",
+    "meta": {
+        "moduleFormat": "(.*)(?:/[^/]*)"
+    },
+    "language": {
+        "csharp": {
+            "packageReferences": {
+                "Pulumi": "3.*"
+            },
+            "compatibility": "tfbridge20"
+        },
+        "go": {
+            "importBasePath": "github.com/rhysmdnz/pulumi-alicloud-fc-url/sdk/go/alicloud-fc-url",
+            "generateResourceContainerTypes": true,
+            "generateExtraInputTypes": true
+        },
+        "nodejs": {
+            "packageName": "alicloud-fc-url",
+            "packageDescription": "A Pulumi package for creating and managing alicloud-fc-url cloud resources.",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/rhysmdnz/terraform-provider-alicloud-fc-url)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-alicloud-fc-url` repo](https://github.com/rhysmdnz/pulumi-alicloud-fc-url/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-alicloud-fc-url` repo](https://github.com/rhysmdnz/terraform-provider-alicloud-fc-url/issues).",
+            "dependencies": {
+                "@pulumi/pulumi": "^3.0.0"
+            },
+            "devDependencies": {
+                "@types/mime": "^2.0.0",
+                "@types/node": "^10.0.0"
+            },
+            "compatibility": "tfbridge20",
+            "disableUnionOutputTypes": true
+        },
+        "python": {
+            "requires": {
+                "pulumi": "\u003e=3.0.0,\u003c4.0.0"
+            },
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/rhysmdnz/terraform-provider-alicloud-fc-url)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-alicloud-fc-url` repo](https://github.com/rhysmdnz/pulumi-alicloud-fc-url/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-alicloud-fc-url` repo](https://github.com/rhysmdnz/terraform-provider-alicloud-fc-url/issues).",
+            "compatibility": "tfbridge20",
+            "pyproject": {
+                "enabled": true
+            }
+        }
+    },
+    "config": {
+        "variables": {
+            "region": {
+                "type": "string",
+                "description": "Example provider attribute\n"
+            }
+        },
+        "defaults": [
+            "region"
+        ]
+    },
+    "provider": {
+        "description": "The provider type for the alicloud-fc-url package. By default, resources use package-wide configuration\nsettings, however an explicit `Provider` instance may be created and passed during resource\nconstruction to achieve fine-grained programmatic control over provider settings. See the\n[documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.\n",
+        "properties": {
+            "region": {
+                "type": "string",
+                "description": "Example provider attribute\n"
+            }
+        },
+        "required": [
+            "region"
+        ],
+        "inputProperties": {
+            "region": {
+                "type": "string",
+                "description": "Example provider attribute\n"
+            }
+        },
+        "requiredInputs": [
+            "region"
+        ]
+    },
+    "functions": {
+        "alicloud-fc-url:index/getTriggerUrl:getTriggerUrl": {
+            "description": "Example data source\n",
+            "inputs": {
+                "description": "A collection of arguments for invoking getTriggerUrl.\n",
+                "properties": {
+                    "functionName": {
+                        "type": "string",
+                        "description": "Example identifier\n"
+                    },
+                    "serviceName": {
+                        "type": "string",
+                        "description": "Example configurable attribute\n"
+                    },
+                    "triggerName": {
+                        "type": "string",
+                        "description": "Example identifier\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "functionName",
+                    "serviceName",
+                    "triggerName"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getTriggerUrl.\n",
+                "properties": {
+                    "config": {
+                        "type": "string"
+                    },
+                    "creationTime": {
+                        "type": "string"
+                    },
+                    "functionName": {
+                        "type": "string",
+                        "description": "Example identifier\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of this resource.\n"
+                    },
+                    "invocationRole": {
+                        "type": "string"
+                    },
+                    "lastModificationTime": {
+                        "type": "string"
+                    },
+                    "serviceName": {
+                        "type": "string",
+                        "description": "Example configurable attribute\n"
+                    },
+                    "sourceArn": {
+                        "type": "string"
+                    },
+                    "triggerName": {
+                        "type": "string",
+                        "description": "Example identifier\n"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "urlInternet": {
+                        "type": "string"
+                    },
+                    "urlIntranet": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "config",
+                    "creationTime",
+                    "functionName",
+                    "id",
+                    "invocationRole",
+                    "lastModificationTime",
+                    "serviceName",
+                    "sourceArn",
+                    "triggerName",
+                    "type",
+                    "urlInternet",
+                    "urlIntranet"
+                ]
+            }
+        }
+    }
+}

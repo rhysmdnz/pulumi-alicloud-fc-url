@@ -1,0 +1,10 @@
+{
+    "auto-aliasing": {
+        "datasources": {
+            "alicloud-fc-url_trigger_url": {
+                "current": "alicloud-fc-url:index/getTriggerUrl:getTriggerUrl"
+            }
+        }
+    },
+    "auto-settings": {}
+}

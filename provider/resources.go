@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package xyz
+package alicloudfcurl
 
 import (
 	"fmt"
@@ -21,36 +21,26 @@ import (
 	// Allow embedding bridge-metadata.json in the provider.
 	_ "embed"
 
+	pf "github.com/pulumi/pulumi-terraform-bridge/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/tokens"
-	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
-	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/rhysmdnz/terraform-provider-alicloud-fc-url/shim"
 
 	// Replace this provider with the provider you are bridging.
-	xyz "github.com/iwahbe/terraform-provider-xyz/provider"
 
-	"github.com/pulumi/pulumi-xyz/provider/pkg/version"
+	"github.com/rhysmdnz/pulumi-alicloud-fc-url/provider/pkg/version"
 )
 
 // all of the token components used below.
 const (
 	// This variable controls the default name of the package in the package
 	// registries for nodejs and python:
-	mainPkg = "xyz"
+	mainPkg = "alicloud-fc-url"
 	// modules:
-	mainMod = "index" // the xyz module
+	mainMod = "index" // the alicloud-fc-url module
 )
 
-// preConfigureCallback is called before the providerConfigure function of the underlying provider.
-// It should validate that the provider can be configured, and provide actionable errors in the case
-// it cannot be. Configuration variables can be read from `vars` using the `stringValue` function -
-// for example `stringValue(vars, "accessKey")`.
-func preConfigureCallback(resource.PropertyMap, shim.ResourceConfig) error {
-	return nil
-}
-
-//go:embed cmd/pulumi-resource-xyz/bridge-metadata.json
+//go:embed cmd/pulumi-resource-alicloud-fc-url/bridge-metadata.json
 var metadata []byte
 
 // Provider returns additional overlaid schema and metadata associated with the provider..
@@ -58,39 +48,19 @@ func Provider() tfbridge.ProviderInfo {
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
 		// Instantiate the Terraform provider
-		P:    shimv2.NewProvider(xyz.New(version.Version)()),
-		Name: "xyz",
-		// DisplayName is a way to be able to change the casing of the provider
-		// name when being displayed on the Pulumi registry
-		DisplayName: "",
-		// The default publisher for all packages is Pulumi.
-		// Change this to your personal name (or a company name) that you
-		// would like to be shown in the Pulumi Registry if this package is published
-		// there.
-		Publisher: "Pulumi",
-		// LogoURL is optional but useful to help identify your package in the Pulumi Registry
-		// if this package is published there.
-		//
-		// You may host a logo on a domain you control or add an SVG logo for your package
-		// in your repository and use the raw content URL for that file as your logo URL.
-		LogoURL: "",
-		// PluginDownloadURL is an optional URL used to download the Provider
-		// for use in Pulumi programs
-		// e.g https://github.com/org/pulumi-provider-name/releases/
-		PluginDownloadURL: "",
-		Description:       "A Pulumi package for creating and managing xyz cloud resources.",
-		// category/cloud tag helps with categorizing the package in the Pulumi Registry.
-		// For all available categories, see `Keywords` in
-		// https://www.pulumi.com/docs/guides/pulumi-packages/schema/#package.
-		Keywords:   []string{"pulumi", "xyz", "category/cloud"},
-		License:    "Apache-2.0",
-		Homepage:   "https://www.pulumi.com",
-		Repository: "https://github.com/pulumi/pulumi-xyz",
-		// The GitHub Org for the provider - defaults to `terraform-providers`. Note that this
-		// should match the TF provider module's require directive, not any replace directives.
-		GitHubOrg:    "",
-		MetadataInfo: tfbridge.NewProviderMetadata(metadata),
-		Config:       map[string]*tfbridge.SchemaInfo{
+		P:                 pf.ShimProvider(shim.NewProvider(version.Version)),
+		Name:              "alicloud-fc-url",
+		Publisher:         "Rhys",
+		Version:           version.Version,
+		PluginDownloadURL: "github://api.github.com/rhysmdnz/pulumi-alicloud-fc-url",
+		Description:       "A Pulumi package for creating and managing alicloud-fc-url cloud resources.",
+		Keywords:          []string{"pulumi", "alicloud-fc-url", "category/cloud"},
+		License:           "Apache-2.0",
+		Homepage:          "https://www.pulumi.com",
+		Repository:        "https://github.com/rhysmdnz/pulumi-alicloud-fc-url",
+		GitHubOrg:         "rhysmdnz",
+		MetadataInfo:      tfbridge.NewProviderMetadata(metadata),
+		Config:            map[string]*tfbridge.SchemaInfo{
 			// Add any required configuration here, or remove the example below if
 			// no additional points are required.
 			// "region": {
@@ -100,8 +70,7 @@ func Provider() tfbridge.ProviderInfo {
 			// 	},
 			// },
 		},
-		PreConfigureCallback: preConfigureCallback,
-		Resources:            map[string]*tfbridge.ResourceInfo{
+		Resources: map[string]*tfbridge.ResourceInfo{
 			// Map each resource in the Terraform provider to a Pulumi type. Two examples
 			// are below - the single line form is the common case. The multi-line form is
 			// needed only if you wish to override types or other default options.
@@ -121,6 +90,7 @@ func Provider() tfbridge.ProviderInfo {
 			// "aws_ami": {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getAmi")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
+			PackageName: "alicloud-fc-url",
 			// List any npm dependencies and their versions
 			Dependencies: map[string]string{
 				"@pulumi/pulumi": "^3.0.0",
@@ -134,15 +104,18 @@ func Provider() tfbridge.ProviderInfo {
 			// no overlay files.
 			//Overlay: &tfbridge.OverlayInfo{},
 		},
-		Python: &tfbridge.PythonInfo{
-			// List any Python dependencies and their version ranges
-			Requires: map[string]string{
-				"pulumi": ">=3.0.0,<4.0.0",
-			},
-		},
+		Python: (func() *tfbridge.PythonInfo {
+			i := &tfbridge.PythonInfo{
+				Requires: map[string]string{
+					"pulumi": ">=3.0.0,<4.0.0",
+				},
+			}
+			i.PyProject.Enabled = true
+			return i
+		})(),
 		Golang: &tfbridge.GolangInfo{
 			ImportBasePath: path.Join(
-				fmt.Sprintf("github.com/pulumi/pulumi-%[1]s/sdk/", mainPkg),
+				fmt.Sprintf("github.com/rhysmdnz/pulumi-%[1]s/sdk/", mainPkg),
 				tfbridge.GetModuleMajorVersion(version.Version),
 				"go",
 				mainPkg,
@@ -160,7 +133,7 @@ func Provider() tfbridge.ProviderInfo {
 	// tokens, and apply auto aliasing for full backwards compatibility.  For more
 	// information, please reference:
 	// https://pkg.go.dev/github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge#ProviderInfo.ComputeTokens
-	prov.MustComputeTokens(tokens.SingleModule("xyz_", mainMod,
+	prov.MustComputeTokens(tokens.SingleModule("alicloud-fc-url_", mainMod,
 		tokens.MakeStandard(mainPkg)))
 	prov.MustApplyAutoAliases()
 	prov.SetAutonaming(255, "-")
