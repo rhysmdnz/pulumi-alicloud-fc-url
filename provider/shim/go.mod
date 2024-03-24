@@ -3,7 +3,7 @@ module github.com/rhysmdnz/terraform-provider-alicloud-fc-url/shim
 go 1.21
 
 require (
-	github.com/hashicorp/terraform-plugin-framework v1.6.1
+	github.com/hashicorp/terraform-plugin-framework v1.7.0
 	github.com/rhysmdnz/terraform-provider-alicloud-fc-url v0.0.4
 )
 
