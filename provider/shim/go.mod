@@ -35,7 +35,7 @@ require (
 	github.com/tjfoc/gmsm v1.4.1 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
-	golang.org/x/net v0.22.0 // indirect
+	golang.org/x/net v0.23.0 // indirect
 	golang.org/x/sys v0.18.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 )
