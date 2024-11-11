@@ -8,7 +8,6 @@ import * as utilities from "./utilities";
  * Example data source
  */
 export function getTriggerUrl(args: GetTriggerUrlArgs, opts?: pulumi.InvokeOptions): Promise<GetTriggerUrlResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("alicloud-fc-url:index/getTriggerUrl:getTriggerUrl", {
         "functionName": args.functionName,
@@ -68,7 +67,12 @@ export interface GetTriggerUrlResult {
  * Example data source
  */
 export function getTriggerUrlOutput(args: GetTriggerUrlOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetTriggerUrlResult> {
-    return pulumi.output(args).apply((a: any) => getTriggerUrl(a, opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("alicloud-fc-url:index/getTriggerUrl:getTriggerUrl", {
+        "functionName": args.functionName,
+        "serviceName": args.serviceName,
+        "triggerName": args.triggerName,
+    }, opts);
 }
 
 /**

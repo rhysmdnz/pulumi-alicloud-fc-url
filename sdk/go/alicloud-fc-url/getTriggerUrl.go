@@ -54,14 +54,20 @@ type GetTriggerUrlResult struct {
 
 func GetTriggerUrlOutput(ctx *pulumi.Context, args GetTriggerUrlOutputArgs, opts ...pulumi.InvokeOption) GetTriggerUrlResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (GetTriggerUrlResult, error) {
+		ApplyT(func(v interface{}) (GetTriggerUrlResultOutput, error) {
 			args := v.(GetTriggerUrlArgs)
-			r, err := GetTriggerUrl(ctx, &args, opts...)
-			var s GetTriggerUrlResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv GetTriggerUrlResult
+			secret, err := ctx.InvokePackageRaw("alicloud-fc-url:index/getTriggerUrl:getTriggerUrl", args, &rv, "", opts...)
+			if err != nil {
+				return GetTriggerUrlResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(GetTriggerUrlResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(GetTriggerUrlResultOutput), nil
+			}
+			return output, nil
 		}).(GetTriggerUrlResultOutput)
 }
 

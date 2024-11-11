@@ -21,7 +21,7 @@ import (
 	// Allow embedding bridge-metadata.json in the provider.
 	_ "embed"
 
-	pf "github.com/pulumi/pulumi-terraform-bridge/pf/tfbridge"
+	pf "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/tokens"
 	"github.com/rhysmdnz/terraform-provider-alicloud-fc-url/shim"

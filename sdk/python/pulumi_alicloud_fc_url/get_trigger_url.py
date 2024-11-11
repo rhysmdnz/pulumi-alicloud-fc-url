@@ -4,9 +4,14 @@
 
 import copy
 import warnings
+import sys
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
+if sys.version_info >= (3, 11):
+    from typing import NotRequired, TypedDict, TypeAlias
+else:
+    from typing_extensions import NotRequired, TypedDict, TypeAlias
 from . import _utilities
 
 __all__ = [
@@ -184,9 +189,6 @@ def get_trigger_url(function_name: Optional[str] = None,
         type=pulumi.get(__ret__, 'type'),
         url_internet=pulumi.get(__ret__, 'url_internet'),
         url_intranet=pulumi.get(__ret__, 'url_intranet'))
-
-
-@_utilities.lift_output_func(get_trigger_url)
 def get_trigger_url_output(function_name: Optional[pulumi.Input[str]] = None,
                            service_name: Optional[pulumi.Input[str]] = None,
                            trigger_name: Optional[pulumi.Input[str]] = None,
@@ -199,4 +201,22 @@ def get_trigger_url_output(function_name: Optional[pulumi.Input[str]] = None,
     :param str service_name: Example configurable attribute
     :param str trigger_name: Example identifier
     """
-    ...
+    __args__ = dict()
+    __args__['functionName'] = function_name
+    __args__['serviceName'] = service_name
+    __args__['triggerName'] = trigger_name
+    opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
+    __ret__ = pulumi.runtime.invoke_output('alicloud-fc-url:index/getTriggerUrl:getTriggerUrl', __args__, opts=opts, typ=GetTriggerUrlResult)
+    return __ret__.apply(lambda __response__: GetTriggerUrlResult(
+        config=pulumi.get(__response__, 'config'),
+        creation_time=pulumi.get(__response__, 'creation_time'),
+        function_name=pulumi.get(__response__, 'function_name'),
+        id=pulumi.get(__response__, 'id'),
+        invocation_role=pulumi.get(__response__, 'invocation_role'),
+        last_modification_time=pulumi.get(__response__, 'last_modification_time'),
+        service_name=pulumi.get(__response__, 'service_name'),
+        source_arn=pulumi.get(__response__, 'source_arn'),
+        trigger_name=pulumi.get(__response__, 'trigger_name'),
+        type=pulumi.get(__response__, 'type'),
+        url_internet=pulumi.get(__response__, 'url_internet'),
+        url_intranet=pulumi.get(__response__, 'url_intranet')))
