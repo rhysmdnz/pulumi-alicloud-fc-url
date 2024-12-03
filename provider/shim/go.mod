@@ -2,7 +2,7 @@ module github.com/rhysmdnz/terraform-provider-alicloud-fc-url/shim
 
 go 1.22.7
 
-toolchain go1.23.3
+toolchain go1.23.4
 
 require (
 	github.com/hashicorp/terraform-plugin-framework v1.13.0
